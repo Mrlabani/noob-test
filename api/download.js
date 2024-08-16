@@ -10,7 +10,9 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const fileResponse = await axios.get(`${TELEGRAM_API_URL}/getFile?file_id=${fileId}`);
+    const fileResponse = await axios.get(`${TELEGRAM_API_URL}/getFile`, {
+      params: { file_id: fileId }
+    });
     const filePath = fileResponse.data.result.file_path;
     const downloadResponse = await axios.get(`https://api.telegram.org/file/bot<YOUR_BOT_TOKEN>/${filePath}`, { responseType: 'stream' });
 
